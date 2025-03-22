@@ -4,3 +4,246 @@
 *:after {
   box-sizing: border-box;
 }
+
+header {
+  display: flex;
+  padding: 20px;
+  width: 100%;
+  margin: 20px auto;
+  max-width: 1000px;
+  justify-content: space-between;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.siteName {
+  font-size: 36px;
+  font-weight: bold;
+  color: #000000;
+}
+
+header a {
+  text-decoration: none;
+
+}
+
+.nav-container {
+  width: 100%;
+  background-color: #000000;
+}
+
+.nav-container ul  {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+  color: #FFFFFF;
+  justify-content: space-between;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 10px auto;
+  max-width: 1000px;
+}
+
+.nav-container li {
+ display: flex;
+  color: #FFFFFF;
+  ma
+}
+
+main {
+  background-image: url("../images/site/checkerboard.jpg");
+  background-repeat: repeat;
+  padding: 100px 5%;
+}
+
+.main-container {
+
+  display: flex;
+  font-family:Arial, Helvetica, sans-serif;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  margin: 100px auto;
+  border:5px solid green;
+  background-color: #FFFFFF;
+
+}
+
+/* HERO CONTAINER */
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  min-height: 400px;
+  display: flex;
+  background-image: url("../images/vehicles/delorean.jpg");
+  background-position: center center;
+  background-size: fitcontain;
+  background-repeat: no-repeat;
+}
+
+.hero-title {
+  
+  display: flex;
+  font-size: 25px;
+  font-family: Georgia;
+  font-weight: bold;
+  margin-bottom: 10px;
+
+}
+
+.hero-content-wrapper {
+
+  display: flex;
+  width: 100%;
+
+  max-width: 600px;
+  margin: 0 auto;
+
+}
+
+.hero-cta-card {
+
+  display: flex;
+  flex-direction: column;
+  padding: 20px 3%;
+  max-width: 450px;
+  background-color: rgba(255, 255, 255, 0.6);
+  font-weight: bold;
+  min-width: 200px;
+
+
+}
+
+.cta-title {
+  
+
+  font-size: 24px ;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: #008CBA;
+  margin-bottom: 10px;
+
+}
+
+.cta-text {
+  
+  color: #008CBA;
+  font-size: 20px ;
+  margin-bottom: 10px;
+
+}
+
+.cta-btn {
+
+  background-color: #008CBA;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 4px 2px;
+  cursor: pointer;
+  
+}
+
+/* CONTENT CONTAINER */
+
+.content-container {
+
+  display: flex;
+  flex-direction: row;
+}
+
+.content-wrapper {
+
+  display: flex;
+justify-content: start;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.content-title {
+
+  display: flex;
+  font-size: 25px;
+  padding-bottom: 20px;
+  font-family: Georgia;
+
+}
+
+.content-boxes-wrapper {
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+}
+
+.content-box {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  padding: 10px;
+
+}
+
+.content-box-img-container {
+  display: flex;
+  background-color: #008CBA;
+  width: 100%;
+  height: auto;
+  min-height: 125px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.content-box-link {
+
+  display: flex;
+  white-space: nowrap;
+  margin-top: 8px;
+
+}
+
+
+
+.content-list {
+
+  display: flex;
+
+}
+
+.content-list ul li {
+
+  margin-bottom: 10px;
+
+}
+
+@media screen and (max-width: 480px) {
+
+  .content-container,
+  .content-boxes-wrapper,
+  .content-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    flex-direction: column;
+  }
+
+}
+  
+
+
