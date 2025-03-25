@@ -85,7 +85,7 @@ html {
   display: flex;
   background-image: url("../images/vehicles/delorean.jpg");
   background-position: center center;
-  background-size: fitcontain;
+  background-size: contain;
   background-repeat: no-repeat;
 }
 
