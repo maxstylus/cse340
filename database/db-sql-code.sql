@@ -237,4 +237,13 @@ VALUES   (
     5
   );
 
+UPDATE vehicles
+SET description = REPLACE(description, 'small interiors', 'a huge interior')
+WHERE vehicle_name = 'GM Hummer';
+
+UPDATE inventory
+SET 
+    inv_image = CONCAT('/images/vehicles/', SUBSTRING(inv_image FROM 9)),
+    inv_thumbnail = CONCAT('/images/vehicles/', SUBSTRING(inv_thumbnail FROM 9));
+
 
