@@ -237,9 +237,9 @@ VALUES   (
     5
   );
 
-UPDATE vehicles
-SET description = REPLACE(description, 'small interiors', 'a huge interior')
-WHERE vehicle_name = 'GM Hummer';
+UPDATE inventory
+SET inv_description = REPLACE(inv_description, 'small interiors', 'a huge interior')
+WHERE inv_model = 'Hummer';
 
 UPDATE inventory
 SET 
