@@ -22,3 +22,4 @@ SET
     inv_image = CONCAT('/images/vehicles/', SUBSTRING(inv_image FROM 9)),
     inv_thumbnail = CONCAT('/images/vehicles/', SUBSTRING(inv_thumbnail FROM 9));
 
+
