@@ -10,16 +10,16 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
-const inventoryRoute = require("./routes/inventoryRoute")
+const inventoryRoute= require("./routes/inventoryRoute")
 const baseController = require("./controllers/baseController")
-const pool = require("./database") // Add database connection
+
 
 /* ***********************
  * View Engine and Templates
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
-app.set("layout", "./layouts/layout")
+app.set("layout", "./layouts/layout") // not at views root
 
 /* ***********************
  * Routes
@@ -27,21 +27,28 @@ app.set("layout", "./layouts/layout")
 app.use(static)
 
 // Index route
+console.log(baseController); // Test to see if baseController is properly imported.
 app.get("/", baseController.buildHome)
 
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
+/*
+app.get("/", function(req, res){
+  res.render("index", {title: "Home"})
+})
+*/
+
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
  *************************/
-const port = process.env.PORT || 5500
-const host = process.env.HOST || '0.0.0.0'
+const port = process.env.PORT
+const host = process.env.HOST
 
 /* ***********************
  * Log statement to confirm server operation
  *************************/
-app.listen(port, host, () => {
+app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
