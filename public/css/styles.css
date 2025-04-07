@@ -53,6 +53,11 @@ header a {
   padding: 0 3%;
 }
 
+.nav-container li a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
 html {
   background-image: url("../images/site/checkerboard.jpg");
   background-repeat: repeat;
@@ -233,6 +238,73 @@ html {
 
 }
 
+/* Vehicle Detail Page */
+
+#vehicle-detail {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  gap: 2rem;
+}
+
+.left-panel {
+  flex: 3;  /* Takes up 60% of the space */
+}
+
+.right-panel {
+  flex: 2;  /* Takes up 40% of the space */
+}
+
+span.label {
+  font-weight: bold;
+}
+
+
+p.vehicle-price {
+  font-weight: bold;
+}
+
+.vehicle-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.highlight-section {
+  background-color: #f5f5f5;  /* Light gray background */
+  padding: 1rem;
+  margin: 5px 0;
+  border-radius: 5px;  
+}
+
+.regular-section {
+  padding: 1rem;
+  margin: 5px 0;
+  border-radius: 5px;  
+}
+
+/* Error page styles */
+.error-container {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.error-container h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.error-container p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
 @media screen and (max-width: 480px) {
 
   .content-container {
@@ -248,6 +320,16 @@ html {
 
   .nav-container li {
     font-size: 14px;
+    max-width: 100%;
+  }
+
+  #vehicle-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
   }
 
 }

@@ -61,6 +61,7 @@ Util.buildClassificationGrid = async function(data){
 /* **************************************
 * Build the vehicle detail view HTML
 * ************************************ */
+/*
 Util.buildVehicleDetail = async function(vehicle){
   let detail = '<div id="vehicle-detail">'
   
@@ -81,6 +82,51 @@ Util.buildVehicleDetail = async function(vehicle){
   detail += '</div>'
   
   detail += '</div>'
+  return detail
+}
+  */
+
+/* **************************************
+* Build the vehicle detail view HTML
+* ************************************ */
+Util.buildVehicleDetail = async function(vehicle){
+  let detail = '<div id="vehicle-detail">'
+
+  // Vehicle left panel
+  detail += '<div class="left-panel">'
+  
+  // Vehicle header  
+  //detail += '<div class="vehicle-header">'
+  //detail += `<h1>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h1>`
+  //detail += '</div>'
+  
+  // Vehicle image section
+  detail += '<div class="vehicle-image">'
+  detail += `<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}">`
+  detail += '</div>'
+
+  // End left panel
+  detail += '</div>'
+
+  // Right Panel
+  detail += '<div class="right-panel">'
+  
+  // Additional vehicle information section
+  detail += `<h2> ${vehicle.inv_make} ${vehicle.inv_model} Details</h2>`
+  
+  detail += '<div class="vehicle-info">'
+  detail += `<p class="vehicle-price highlight-section"><span class="label">Price: $</span>${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>`
+  detail += `<p class="regular-section"><span class="label">Description:</span> ${vehicle.inv_description}</p>`
+  detail += `<p class="highlight-section"><span class="label">Color:</span> ${vehicle.inv_color}</p>`
+  detail += `<p class="regular-section"><span class="label">Miles:</span> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</p>`
+
+  detail += '</div>'
+  
+  detail += '</div>'
+  
+  // End left panel
+  detail += '</div>'
+
   return detail
 }
 

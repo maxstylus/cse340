@@ -33,6 +33,13 @@ app.get("/", baseController.buildHome)
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
+// Add this route before your 404 handler
+// Deliberately throw an error to test the error handler from "error link'
+app.get("/trigger-error", (req, res, next) => {
+    // Deliberately throw an error
+    throw new Error('500 Error Test');
+  });
+
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
     next({status: 404, message: 'Sorry, we appear to have lost that page.'})
