@@ -5,6 +5,18 @@
   box-sizing: border-box;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
 header {
   display: flex;
   padding: 20px;
@@ -26,6 +38,25 @@ header a {
   text-decoration: none;
   color: #000000;
 
+}
+
+.grid-wrapper ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.grid-wrapper ul li {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 auto;
+  align-items: center;
+}
+
+.grid-wrapper ul li img {
+  height: 200px;
 }
 
 .nav-container {
@@ -164,6 +195,12 @@ html {
 
   display: flex;
   flex-direction: row;
+}
+
+.main-container > #wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .content-wrapper {

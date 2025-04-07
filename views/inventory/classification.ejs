@@ -1,3 +1,5 @@
+<div class="body-container">
+
 <!-- A content heading -->
 
 <% if (title) { %>
@@ -11,5 +13,14 @@
 <%# messages() %>
 
 <!-- Inventory items display. -->  
-<%- grid %>
 
+    <!-- Inventory items display wrapped in content container -->
+    <div class="content-container">
+
+        <div class="grid-wrapper">
+            <%- grid %>
+        </div>
+
+    </div>
+
+</div>
