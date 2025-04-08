@@ -15,6 +15,7 @@ const baseController = require("./controllers/baseController")
 const pool = require("./database") // Add database connection
 const utilities = require("./utilities")
 const session = require("express-session")
+const accountRoute = require("./routes/accountRoute")
 
 
 /* ***********************
@@ -55,6 +56,9 @@ app.get("/", baseController.buildHome)
 
 // Inventory routes
 app.use("/inv", inventoryRoute)
+
+// Account route
+app.use("/account", accountRoute)
 
 // Add this route before your 404 handler
 // Deliberately throw an error to test the error handler from "error link'

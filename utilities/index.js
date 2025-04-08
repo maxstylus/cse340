@@ -58,33 +58,6 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
-/* **************************************
-* Build the vehicle detail view HTML
-* ************************************ */
-/*
-Util.buildVehicleDetail = async function(vehicle){
-  let detail = '<div id="vehicle-detail">'
-  
-  // Vehicle image section
-  detail += '<div class="vehicle-image">'
-  detail += `<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">`
-  detail += '</div>'
-  
-  // Vehicle information section
-  detail += '<div class="vehicle-info">'
-  detail += `<h2>${vehicle.inv_make} ${vehicle.inv_model} Details</h2>`
-  detail += '<ul>'
-  detail += `<li><span class="label">Price:</span> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</li>`
-  detail += `<li><span class="label">Description:</span> ${vehicle.inv_description}</li>`
-  detail += `<li><span class="label">Color:</span> ${vehicle.inv_color}</li>`
-  detail += `<li><span class="label">Miles:</span> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</li>`
-  detail += '</ul>'
-  detail += '</div>'
-  
-  detail += '</div>'
-  return detail
-}
-  */
 
 /* **************************************
 * Build the vehicle detail view HTML
@@ -94,11 +67,6 @@ Util.buildVehicleDetail = async function(vehicle){
 
   // Vehicle left panel
   detail += '<div class="left-panel">'
-  
-  // Vehicle header  
-  //detail += '<div class="vehicle-header">'
-  //detail += `<h1>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h1>`
-  //detail += '</div>'
   
   // Vehicle image section
   detail += '<div class="vehicle-image">'
@@ -128,6 +96,33 @@ Util.buildVehicleDetail = async function(vehicle){
   detail += '</div>'
 
   return detail
+}
+
+Util.getLogin = async function() {
+  let login = '<div class="login-container">'
+  login += '<div id="login-detail">'
+  login += '<form id="loginForm" action="/clients/login" method="post">'
+  login += '<div class="form-group">'
+  login += '<label for="email">Email:</label>'
+  login += '<input type="email" id="email" name="client_email" required placeholder="Enter your email">'
+  login += '</div>'
+
+  login += '<div class="form-group">'
+  login += '<label for="password">Password:</label>'
+  login += '<input type="password" id="password" name="client_password" required '
+  login += 'pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" '
+  login += 'placeholder="Enter your password">'
+  login += '</div>'
+
+  login += '<div class="form-group">'
+  login += '<button type="submit">Login</button>'
+  login += '</div>'
+  login += '</form>'
+  login += '</div>' 
+  login += '<p class="form-note">No account? <a href="/clients/register">Sign-up</a></p>'
+  login += '</div>' 
+
+  return login
 }
 
 module.exports = Util
