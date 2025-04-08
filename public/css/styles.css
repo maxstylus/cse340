@@ -402,7 +402,7 @@ p.vehicle-price {
 .form-note {
   text-align: center;
   margin-top: 1rem;
-  color: #666;
+  color: #665;
 }
 
 .form-note a {
@@ -412,6 +412,43 @@ p.vehicle-price {
 
 .form-note a:hover {
   text-decoration: underline;
+}
+
+/* Registration Form Additional Styles */
+.password-input-group {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.password-input-group input {
+  flex: 2;  /* Takes up 2/3 of available space */
+}
+
+.password-toggle {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  background: #eee;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+.password-toggle:hover {
+  background: #ddd;
+}
+
+.password-requirements {
+  font-size: 0.8rem;
+  color: #665;
+  margin-top: 0.5rem;
+}
+
+#registration-detail {
+  width: 100%;
 }
 
 
@@ -440,6 +477,22 @@ p.vehicle-price {
     justify-content: center;
     width: 100%;
     padding: 10px;
+  }
+
+  .password-input-group {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .password-input-group input,
+  .password-toggle {
+    flex: 1;
+    width: 100%;
+  }
+
+  .password-toggle {
+    padding: 0.75rem;
+    text-align: center;
   }
 
 }

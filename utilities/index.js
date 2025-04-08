@@ -101,7 +101,7 @@ Util.buildVehicleDetail = async function(vehicle){
 Util.getLogin = async function() {
   let login = '<div class="login-container">'
   login += '<div id="login-detail">'
-  login += '<form id="loginForm" action="/clients/login" method="post">'
+  login += '<form id="loginForm" action="/account/login" method="post">'
   login += '<div class="form-group">'
   login += '<label for="email">Email:</label>'
   login += '<input type="email" id="email" name="client_email" required placeholder="Enter your email">'
@@ -119,10 +119,77 @@ Util.getLogin = async function() {
   login += '</div>'
   login += '</form>'
   login += '</div>' 
-  login += '<p class="form-note">No account? <a href="/clients/register">Sign-up</a></p>'
+  login += '<p class="form-note">No account? <a href="/account/register">Sign-up</a></p>'
   login += '</div>' 
 
   return login
+}
+
+Util.getRegister = async function() {
+  let register = '<div class="login-container">'
+  register += '<div id="registration-detail">'
+  register += '<form id="registerForm" action="/account/register" method="post">'
+  
+  // First Name
+  register += '<div class="form-group">'
+  register += '<label for="firstName">First Name:</label>'
+  register += '<input type="text" id="firstName" name="client_firstname" required placeholder="Enter your first name">'
+  register += '</div>'
+  
+  // Last Name
+  register += '<div class="form-group">'
+  register += '<label for="lastName">Last Name:</label>'
+  register += '<input type="text" id="lastName" name="client_lastname" required placeholder="Enter your last name">'
+  register += '</div>'
+  
+  // Email
+  register += '<div class="form-group">'
+  register += '<label for="email">Email:</label>'
+  register += '<input type="email" id="email" name="client_email" required placeholder="Enter your email">'
+  register += '</div>'
+  
+  // Password with toggle
+  register += '<div class="form-group">'
+  register += '<label for="password">Password:</label>'
+  register += '<div class="password-input-group">'
+  register += '<input type="password" id="password" name="client_password" required '
+  register += 'pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" '
+  register += 'placeholder="Enter your password">'
+  register += '<button type="button" id="showPassword" class="password-toggle">'
+  register += '<span>Show</span>'
+  register += '</button>'
+  register += '</div>'
+  register += '<div class="password-requirements">'
+  register += 'Password must be at least 12 characters and include 1 capital letter, 1 number and 1 special character'
+  register += '</div>'
+  register += '</div>'
+
+  // Submit Button
+  register += '<div class="form-group">'
+  register += '<button type="submit">Register</button>'
+  register += '</div>'
+  
+  register += '</form>'
+  register += '</div>'
+  register += '<p class="form-note">Already have an account? <a href="/account/login">Login</a></p>'
+  register += '</div>'
+
+  // Password toggle script
+  register += '<script>'
+  register += 'document.getElementById("showPassword").addEventListener("click", function() {'
+  register += 'const password = document.getElementById("password");'
+  register += 'const toggleButton = this.querySelector("span");'
+  register += 'if (password.type === "password") {'
+  register += '  password.type = "text";'
+  register += '  toggleButton.textContent = "Hide";'
+  register += '} else {'
+  register += '  password.type = "password";'
+  register += '  toggleButton.textContent = "Show";'
+  register += '}'
+  register += '});'
+  register += '</script>'
+
+  return register
 }
 
 module.exports = Util

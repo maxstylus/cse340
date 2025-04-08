@@ -9,10 +9,24 @@ const accountController = {}
 accountController.buildLogin = async function buildLogin(req, res, next) {
     let nav = await utilities.getNav()
     const login = await utilities.getLogin()
-    res.render("clients/login", {
+    res.render("account/login", {
         title: "Login",
         nav,
         login,
+        message: null,
+    })  
+}
+
+/* ****************************************
+*  Deliver Register view
+* *************************************** */
+accountController.buildRegister = async function buildRegister(req, res, next) {
+    let nav = await utilities.getNav()
+    const register = await utilities.getRegister()
+    res.render("account/register", {
+        title: "Register",
+        nav,
+        register,
         message: null,
     })  
 }
