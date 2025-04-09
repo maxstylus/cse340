@@ -110,7 +110,7 @@ Util.getLogin = async function() {
   login += '<div class="form-group">'
   login += '<label for="password">Password:</label>'
   login += '<input type="password" id="password" name="client_password" required '
-  login += 'pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" '
+  login += 'pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z]).{12,}$" '//'pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" '
   login += 'placeholder="Enter your password">'
   login += '</div>'
 
@@ -153,7 +153,7 @@ Util.getRegister = async function() {
   register += '<label for="password">Password:</label>'
   register += '<div class="password-input-group">'
   register += '<input type="password" id="password" name="account_password" required '
-  //register += 'pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" '
+  register += 'pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z]).{12,}$" '//'pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" '
   register += 'placeholder="Enter your password">'
   register += '<button type="button" id="showPassword" class="password-toggle">'
   register += '<span>Show</span>'
