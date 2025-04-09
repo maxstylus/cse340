@@ -125,7 +125,7 @@ Util.getLogin = async function() {
   return login
 }
 
-Util.getRegister = async function() {
+Util.getRegister = async function(data = {}) {
   let register = '<div class="login-container">'
   register += '<div id="registration-detail">'
   register += '<form id="registerForm" action="/account/register" method="post">'
@@ -133,19 +133,19 @@ Util.getRegister = async function() {
   // First Name
   register += '<div class="form-group">'
   register += '<label for="firstName">First Name:</label>'
-  register += '<input type="text" id="firstName" name="account_firstname" required placeholder="Enter your first name">'
+  register += `<input type="text" name="account_firstname" id="accountFirstname" required value="${data.account_firstname || ''}">`
   register += '</div>'
-  
+
   // Last Name
   register += '<div class="form-group">'
   register += '<label for="lastName">Last Name:</label>'
-  register += '<input type="text" id="lastName" name="account_lastname" required placeholder="Enter your last name">'
+  register += `<input type="text" name="account_lastname" id="accountLastname" required value="${data.account_lastname || ''}">`
   register += '</div>'
   
   // Email
   register += '<div class="form-group">'
   register += '<label for="email">Email:</label>'
-  register += '<input type="email" id="email" name="account_email" required placeholder="Enter your email">'
+  register += `<input type="email" name="account_email" id="accountEmail" required value="${data.account_email || ''}">`
   register += '</div>'
   
   // Password with toggle
@@ -153,8 +153,8 @@ Util.getRegister = async function() {
   register += '<label for="password">Password:</label>'
   register += '<div class="password-input-group">'
   register += '<input type="password" id="password" name="account_password" required '
-  register += 'pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z]).{12,}$" '//'pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" '
-  register += 'placeholder="Enter your password">'
+  register += 'pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z]).{12,}$" '
+  register += 'placeholder="">' //Enter your password
   register += '<button type="button" id="showPassword" class="password-toggle">'
   register += '<span>Show</span>'
   register += '</button>'
