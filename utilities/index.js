@@ -133,27 +133,27 @@ Util.getRegister = async function() {
   // First Name
   register += '<div class="form-group">'
   register += '<label for="firstName">First Name:</label>'
-  register += '<input type="text" id="firstName" name="client_firstname" required placeholder="Enter your first name">'
+  register += '<input type="text" id="firstName" name="account_firstname" required placeholder="Enter your first name">'
   register += '</div>'
   
   // Last Name
   register += '<div class="form-group">'
   register += '<label for="lastName">Last Name:</label>'
-  register += '<input type="text" id="lastName" name="client_lastname" required placeholder="Enter your last name">'
+  register += '<input type="text" id="lastName" name="account_lastname" required placeholder="Enter your last name">'
   register += '</div>'
   
   // Email
   register += '<div class="form-group">'
   register += '<label for="email">Email:</label>'
-  register += '<input type="email" id="email" name="client_email" required placeholder="Enter your email">'
+  register += '<input type="email" id="email" name="account_email" required placeholder="Enter your email">'
   register += '</div>'
   
   // Password with toggle
   register += '<div class="form-group">'
   register += '<label for="password">Password:</label>'
   register += '<div class="password-input-group">'
-  register += '<input type="password" id="password" name="client_password" required '
-  register += 'pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" '
+  register += '<input type="password" id="password" name="account_password" required '
+  //register += 'pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" '
   register += 'placeholder="Enter your password">'
   register += '<button type="button" id="showPassword" class="password-toggle">'
   register += '<span>Show</span>'

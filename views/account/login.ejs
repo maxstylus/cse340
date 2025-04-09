@@ -5,6 +5,11 @@
   <div class="body-container">
     <div class="content-container">
       <%- messages() %>
-      <%- login %>
+      <% if (typeof login !== 'undefined') { %>
+        <%- login %>
+      <% } else { %>
+        <p>Error loading login form</p>
+      <% } %>
+    
     </div>
   </div>

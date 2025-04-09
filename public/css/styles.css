@@ -196,7 +196,7 @@ html {
 .content-container {
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .main-container > #wrapper {
@@ -449,6 +449,16 @@ p.vehicle-price {
 
 #registration-detail {
   width: 100%;
+}
+
+/* Error Messages */
+
+
+
+ul.notice {
+  color: red;
+  font-size: 0.9rem;
+
 }
 
 
