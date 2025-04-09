@@ -110,7 +110,7 @@ Util.getLogin = async function() {
   login += '<div class="form-group">'
   login += '<label for="password">Password:</label>'
   login += '<input type="password" id="password" name="client_password" required '
-  login += 'pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z]).{12,}$" '//'pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" '
+  login += 'pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z]).{12,}$" '
   login += 'placeholder="Enter your password">'
   login += '</div>'
 

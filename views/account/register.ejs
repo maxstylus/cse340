@@ -5,6 +5,20 @@
   <div class="body-container">
     <div class="content-container">
       <%- messages() %>
-      <%- register %>
+      <!-- Error Messages diplayed in a list -->
+      <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error => { %>
+                <li><%= error.msg %></li>
+            <%  }) %>
+       </ul>
+      <% } %>
+
+      <% if (typeof register !== 'undefined') { %>
+        <%- register %>
+      <% } else { %>
+        <p>Error loading register form</p>
+      <% } %>
+      
     </div>
   </div>

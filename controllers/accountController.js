@@ -31,14 +31,21 @@ accountController.buildLogin = async function buildLogin(req, res, next) {
 *  Deliver Register view
 * *************************************** */
 accountController.buildRegister = async function buildRegister(req, res, next) {
-    let nav = await utilities.getNav()
-    const register = await utilities.getRegister()
-    res.render("account/register", {
-        title: "Register",
-        nav,
-        register,
-        message: null,
-    })  
+    try {
+        let nav = await utilities.getNav()
+        const register = await utilities.getRegister()
+        console.log("Debug - register content:", register) // Add debug logging
+
+        res.render("account/register", {
+            title: "Register",
+            nav,
+            errors: null,
+            register,
+        })
+    } catch (error) {
+        console.error("Error in buildRegister:", error)
+        next(error)
+    } 
 }
 
 /* ****************************************
@@ -48,13 +55,6 @@ accountController.registerAccount = async function registerAccount(req, res) {
     let nav = await utilities.getNav()
     const { account_firstname, account_lastname, account_email, account_password } = req.body
 
-    // debug
-    console.log("Registration data:", { 
-        firstname: account_firstname, 
-        lastname: account_lastname, 
-        email: account_email 
-      })
-  
     const regResult = await accountModel.registerAccount(
       account_firstname,
       account_lastname,
@@ -73,6 +73,7 @@ accountController.registerAccount = async function registerAccount(req, res) {
         title: "Login",
         nav,
         login,
+        errors: null
       })
     } else {
       req.flash("notice", "Sorry, the registration failed.")
