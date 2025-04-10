@@ -188,6 +188,8 @@ Util.getRegister = async function(data = {}) {
   register += '}'
   register += '});'
   register += '</script>'
+
+  return register
 }
 
 Util.buildClassificationList = async function(classification_id = null) {

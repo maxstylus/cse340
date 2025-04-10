@@ -8,19 +8,17 @@
     res.redirect('/')
 } %>
 
+<% if (message) { %>
+    <p class="notice"><%= message %></p>
+<% } %>
 
-<!-- Message -->
-<%# messages() %>
 
-<!-- Inventory items display. -->  
+<!-- Inventory items display wrapped in content container -->
+<div class="content-container">
 
-    <!-- Inventory items display wrapped in content container -->
-    <div class="content-container">
-
-        <div class="grid-wrapper">
-            <%- grid %>
-        </div>
-
+    <div class="grid-wrapper">
+        <%- grid %>
     </div>
+</div>
 
 </div>
