@@ -1,0 +1,24 @@
+<!-- site-name/inv/ -->
+
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+
+<div class="management-container">
+    <%- messages() %>
+
+    <div class="management-links">
+        <div class="management-item">
+            <h2>Classifications</h2>
+            <a href="/inv/add-classification" title="Add New Classification">Add New Classification</a>
+        </div>
+        
+        <div class="management-item">
+            <h2>Inventory</h2>
+            <a href="/inv/add-inventory" title="Add New Vehicle">Add New Vehicle</a>
+        </div>
+    </div>
+</div>
+

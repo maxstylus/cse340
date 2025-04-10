@@ -461,6 +461,88 @@ ul.notice {
 
 }
 
+/* Management Page Styles */
+
+.management-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.management-links {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.management-item {
+  flex: 1;
+  padding: 1.5rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.management-item h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.management-item a {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.management-item a:hover {
+  background-color: #333;
+}
+
+/* Add Inventory */
+#addInventoryForm {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#addInventoryForm .form-group {
+  margin-bottom: 1.5rem;
+}
+
+#addInventoryForm label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+#addInventoryForm input,
+#addInventoryForm select,
+#addInventoryForm textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#addInventoryForm textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+#addInventoryForm input:invalid,
+#addInventoryForm select:invalid,
+#addInventoryForm textarea:invalid {
+  border-color: #ff4444;
+}
+
+.form-instruction {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
 
 @media screen and (max-width: 480px) {
 
@@ -504,6 +586,10 @@ ul.notice {
     padding: 0.75rem;
     text-align: center;
   }
+
+  .management-links {
+    flex-direction: column;
+}
 
 }
   
