@@ -43,7 +43,53 @@ validate.inventoryRules = () => {
             .matches(/^[a-zA-Z0-9-\s]{3,}$/)
             .withMessage("Please provide a valid vehicle make"),
 
-        // Add other validation rules for each field...
+        // Make validation
+        body("inv_make")
+            .trim()
+            .isLength({ min: 3 })
+            .withMessage("Make must be at least 3 characters")
+            .matches(/^[a-zA-Z0-9-\s]+$/)
+            .withMessage("Make can only contain letters, numbers, spaces and hyphens"),
+
+        // Model validation
+        body("inv_model")
+            .trim()
+            .isLength({ min: 3 })
+            .withMessage("Model must be at least 3 characters")
+            .matches(/^[a-zA-Z0-9-\s]+$/)
+            .withMessage("Model can only contain letters, numbers, spaces and hyphens"),
+
+        // Year validation
+        body("inv_year")
+            .trim()
+            .isInt({ min: 1900, max: 2024 })
+            .withMessage("Year must be between 1900 and 2024"),
+
+        // Description validation
+        body("inv_description")
+            .trim()
+            .isLength({ min: 20 })
+            .withMessage("Description must be at least 20 characters"),
+
+        // Price validation
+        body("inv_price")
+            .trim()
+            .isFloat({ min: 0 })
+            .withMessage("Price must be a valid number greater than 0"),
+
+        // Miles validation
+        body("inv_miles")
+            .trim()
+            .isInt({ min: 0 })
+            .withMessage("Miles must be a valid number greater than 0"),
+
+        // Color validation
+        body("inv_color")
+            .trim()
+            .isLength({ min: 3 })
+            .withMessage("Color must be at least 3 characters")
+            .matches(/^[a-zA-Z\s]+$/)
+            .withMessage("Color can only contain letters and spaces"),
     ]
 }
 
