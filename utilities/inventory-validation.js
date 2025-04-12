@@ -37,12 +37,6 @@ validate.inventoryRules = () => {
             .isInt()
             .withMessage("Please select a valid classification"),
 
-        body("inv_make")
-            .trim()
-            .isLength({ min: 3 })
-            .matches(/^[a-zA-Z0-9-\s]{3,}$/)
-            .withMessage("Please provide a valid vehicle make"),
-
         // Make validation
         body("inv_make")
             .trim()

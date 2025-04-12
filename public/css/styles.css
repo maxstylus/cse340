@@ -543,6 +543,9 @@ ul.notice {
   margin-top: 0.25rem;
 }
 
+.error-container {
+  color:red;
+}
 
 @media screen and (max-width: 480px) {
 
