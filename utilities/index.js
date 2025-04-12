@@ -209,4 +209,15 @@ Util.buildClassificationList = async function(classification_id = null) {
   return classificationList
 }
 
+/* ****************************************
+ * Handles Authorization
+ * *************************************** */
+Util.checkLogin = (req, res, next) => {
+  if (req.cookies.jwt) {
+      return next()
+  }
+  req.flash("notice", "Please log in.")
+  return res.redirect("/account/login")
+}
+
 module.exports = Util

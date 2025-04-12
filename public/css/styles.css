@@ -543,6 +543,19 @@ ul.notice {
   margin-top: 0.25rem;
 }
 
+.management-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.account-management {
+  background-color: #f5f5f5;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
 .error-container {
   color:red;
 }
