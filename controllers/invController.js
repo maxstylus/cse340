@@ -230,41 +230,43 @@ invCont.addInventory = async function (req, res, next) {
 invCont.buildEditInventory = async function (req, res, next) {
   try {
     const inv_id = parseInt(req.params.inventoryId)
-  let nav = await utilities.getNav()
-  const itemData = await invModel.getInventoryById(inv_id)
+    let nav = await utilities.getNav()
+    //const itemData = await invModel.getInventoryById(inv_id)
+    const data = await invModel.getInventoryById(inv_id)
+    const itemData = data[0] 
 
-  // Check if itemData exists and has properties
-  if (!itemData) {
-    req.flash("notice", "Vehicle not found.")
-    res.redirect("/inv")
-    return
-  }
+    // Check if itemData exists and has properties
+    if (!itemData) {
+      req.flash("notice", "Vehicle not found.")
+      res.redirect("/inv")
+      return
+    }
 
-  const classificationList = await utilities.buildClassificationList(itemData.classification_id)
-  const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+    const classificationList = await utilities.buildClassificationList(itemData.classification_id)
+    const itemName = `${itemData.inv_make} ${itemData.inv_model}`
 
 
-  res.render("./inventory/edit-inventory", {
-    title: "Edit " + itemName,
-    nav,
-    classificationList: classificationList,
-    errors: null,
-    inv_id: itemData.inv_id,
-    inv_make: itemData.inv_make,
-    inv_model: itemData.inv_model,
-    inv_year: itemData.inv_year,
-    inv_description: itemData.inv_description,
-    inv_image: itemData.inv_image,
-    inv_thumbnail: itemData.inv_thumbnail,
-    inv_price: itemData.inv_price,
-    inv_miles: itemData.inv_miles,
-    inv_color: itemData.inv_color,
-    classification_id: itemData.classification_id
-  })
-  } catch (error) {
-    console.error("buildEditInventory error:", error)
-    next(error)
-  }    
+    res.render("./inventory/edit-inventory", {
+      title: "Edit " + itemName,
+      nav,
+      classificationList: classificationList,
+      errors: null,
+      inv_id: itemData.inv_id,
+      inv_make: itemData.inv_make,
+      inv_model: itemData.inv_model,
+      inv_year: itemData.inv_year,
+      inv_description: itemData.inv_description,
+      inv_image: itemData.inv_image,
+      inv_thumbnail: itemData.inv_thumbnail,
+      inv_price: itemData.inv_price,
+      inv_miles: itemData.inv_miles,
+      inv_color: itemData.inv_color,
+      classification_id: itemData.classification_id
+    })
+    } catch (error) {
+      console.error("buildEditInventory error:", error)
+      next(error)
+    }    
 }
 
 module.exports = invCont
