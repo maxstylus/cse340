@@ -13,7 +13,7 @@
         </ul>
     <% } %>
 
-    <form id="editInventoryForm" action="/inv/update" method="post">
+    <form id="updateForm" action="/inv/update" method="post"> <!-- editInventoryForm updateForm-->
         <div class="form-group">
             <label for="classification_id">Classification:</label>
             <%- classificationList %>
@@ -80,8 +80,13 @@
                 value="<%= locals.inv_color || '' %>">
         </div>
 
+        <!-- Add hidden input here -->
+        <input type="hidden" name="inv_id" value="<%= locals.inv_id %>">
+
         <div class="form-group">
-            <button type="submit">Update Vehicle</button>
+            <button type="submit" disabled>Update Vehicle</button>
         </div>
+  
     </form>
+    <script src="/js/inv-update.js"></script>
 </div>

@@ -14,6 +14,12 @@ router.get("/detail/:inventoryId", invController.buildByInventoryId);
 // Route to build edit inventory view 
 router.get("/edit/:inventoryId", invController.buildEditInventory)
 
+router.post("/update/", 
+    invValidate.inventoryRules(), 
+    invValidate.checkUpdateData,  
+    invController.updateInventory
+)
+
 // Base route for inventory management
 router.get("/", invController.buildManagement)
 
