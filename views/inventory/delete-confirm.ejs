@@ -1,0 +1,61 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } %>
+
+<div class="form-container">
+    <%- messages() %>
+
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <p>Confirm Deletion - The delete is permanent.</p>
+
+    <form id="deleteForm" action="/inv/delete" method="post"> 
+        
+        <!-- Make -->
+        <div class="form-group">
+            <label for="inv_make">Make:</label>
+            <input type="text" name="inv_make" id="inv_make" required 
+                pattern="^[a-zA-Z0-9-\s]{3,}$"
+                value="<%= locals.inv_make || '' %>" readonly>
+            <span class="form-instruction">Minimum 3 characters, letters, numbers and hyphens only</span>
+        </div>
+
+        <!-- Model -->
+        <div class="form-group">
+            <label for="inv_model">Model:</label>
+            <input type="text" name="inv_model" id="inv_model" required 
+                pattern="^[a-zA-Z0-9-\s]{3,}$"
+                value="<%= locals.inv_model || '' %>" readonly>
+        </div>
+        
+        <!-- Year -->
+        <div class="form-group">
+            <label for="inv_year">Year:</label>
+            <input type="number" name="inv_year" id="inv_year" required 
+                min="1900" max="2024"
+                value="<%= locals.inv_year || '' %>" readonly>
+        </div>
+
+        <!-- Price -->
+        <div class="form-group">
+            <label for="inv_price">Price:</label>
+            <input type="number" name="inv_price" id="inv_price" required 
+                min="0" step="0.01"
+                value="<%= locals.inv_price || '' %>" readonly>
+        </div>
+
+        <!-- Add hidden input here -->
+        <input type="hidden" name="inv_id" value="<%= locals.inv_id %>">
+
+        <div class="form-group">
+            <button type="submit">Delete Vehicle</button>
+        </div>
+  
+    </form>
+</div>

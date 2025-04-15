@@ -20,6 +20,12 @@ router.post("/update/",
     invController.updateInventory
 )
 
+// Route to build delete confirmation view
+router.get("/delete/:inventoryId", invController.buildDeleteConfirmation)
+
+// Process the delete request
+router.post("/delete", invController.deleteInventory)
+
 // Base route for inventory management
 router.get("/", invController.buildManagement)
 
