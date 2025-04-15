@@ -1,0 +1,90 @@
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
+
+function generateToken(userData) {
+    return jwt.sign(userData, accessTokenSecret, { expiresIn: 3600 * 1000 })
+  }
+
+function verifyToken(req, res, next) {
+    console.log("Verifying token...") // Debug log
+    console.log("Cookies received:", req.cookies) // Debug log
+
+    const token = req.cookies.jwt
+  
+    res.locals.loggedin = false
+    res.locals.accountData = null
+
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, accessTokenSecret)
+
+      // header.ejs uses these variables to determine if the user is logged in
+      res.locals.loggedin = true
+      res.locals.accountData = decoded
+      console.log("Token verified successfully:", decoded.account_firstname) // Debug log
+    } catch (err) {
+        console.log("Token verification failed:", err.message) // Debug log
+        //res.locals.loggedin = false 
+        res.clearCookie('jwt')
+        console.log("Token expired or invalid, cookie cleared") // Debug log}
+    }
+  }
+  else if (req.session.user) {
+    res.locals.loggedin = true
+    res.locals.accountData = req.session.user
+    console.log("Session user found:", req.session.user.account_firstname) // Debug log
+  }
+  else if (req.session.user === null) {
+    res.locals.loggedin = false
+    res.locals.accountData = null
+    console.log("Session user is null") // Debug log
+  }
+  else if (req.session.user === undefined) {
+    res.locals.loggedin = false
+    res.locals.accountData = null
+    console.log("Session user is undefined") // Debug log
+  }
+  else if (req.session.user === "") {
+    res.locals.loggedin = false
+    res.locals.accountData = null
+    console.log("Session user is empty") // Debug log
+  }
+  else if (req.session.user === undefined) {
+    res.locals.loggedin = false
+    res.locals.accountData = null
+    console.log("Session user is undefined") // Debug log
+  }
+  else if (req.session.user === null) {
+    res.locals.loggedin = false
+    res.locals.accountData = null
+    console.log("Session user is null") // Debug log
+  }
+  else if (req.session.user === "") {
+    res.locals.loggedin = false
+    res.locals.accountData = null
+    console.log("Session user is empty") // Debug log
+  }
+  else if (req.session.user === undefined) {
+    res.locals.loggedin = false
+    res.locals.accountData = null
+    console.log("Session user is undefined") // Debug log
+  }
+  else if (req.session.user === null) {
+    res.locals.loggedin = false
+    res.locals.accountData = null
+    console.log("Session user is null") // Debug log
+  }
+  else if (req.session.user === "") {
+    res.locals.loggedin = false
+    res.locals.accountData = null
+    console.log("Session user is empty") // Debug log
+  }
+  else {
+    console.log("No JWT cookie found")
+  }
+  next()
+}
+
+module.exports = { generateToken, verifyToken } 

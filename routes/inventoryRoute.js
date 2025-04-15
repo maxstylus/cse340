@@ -11,8 +11,13 @@ router.get("/type/:classificationId", invController.buildByClassificationId);
 // Route to build inventory by detail view
 router.get("/detail/:inventoryId", invController.buildByInventoryId);
 
+// Route to build edit inventory view 
+router.get("/edit/:inventoryId", invController.buildEditInventory)
+
 // Base route for inventory management
 router.get("/", invController.buildManagement)
+
+router.get("/getInventory/:classification_id", invController.getInventoryJSON);
 
 // Route to build add classification view
 router.get("/add-classification", invController.buildAddClassification)

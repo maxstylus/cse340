@@ -12,18 +12,57 @@ const app = express()
 const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
 const baseController = require("./controllers/baseController")
-const pool = require("./database") // Add database connection
+//const pool = require("./database") // Add database connection
 const utilities = require("./utilities")
 const session = require("express-session")
 const accountRoute = require("./routes/accountRoute")
-const bodyParser = require("body-parser")
+//const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
-
+const jwtAuth = require('./utilities/jwt-auth')
 
 
 /* ***********************
  * Middleware
  * ************************/
+
+app.use(express.static("public"))
+app.use(express.json())
+//app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
+
+// Simple session configuration for flash messages only
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  name: 'flashSession',
+  cookie: { 
+    maxAge: 60000 // 1 minute
+  }
+}))
+
+
+// Session middleware - keep this minimal for flash messages only
+
+/*
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+  cookie: {
+    maxAge: 1000 * 60 * 5 // 5 minutes
+  }
+}))
+  */
+
+/*
 app.use(session({
     store: new (require('connect-pg-simple')(session))({
       createTableIfMissing: true,
@@ -33,9 +72,9 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     name: 'sessionId',
-  }))
+  })) */
 
-// Express Messages Middleware
+// Flash message Middleware
 app.use(require('connect-flash')())
 app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
@@ -43,10 +82,11 @@ app.use(function(req, res, next){
 })
 
 // Process Registration Form Data
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+//app.use(bodyParser.json())
+//app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-app.use(cookieParser())
+// JWT verification middleware
+//app.use(jwtAuth.verifyToken) 
 
 
 /* ***********************

@@ -16,7 +16,6 @@ a {
   color: inherit;
 }
 
-
 header {
   display: flex;
   padding: 20px;
@@ -605,7 +604,74 @@ ul.notice {
 
   .management-links {
     flex-direction: column;
-}
+  }
+
+  .management-select-inventory {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    width: 100%;
+  }
+  
+  .management-select-inventory h2 {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  /* Ensure table fits within the shaded box */
+  .management-select-inventory #inventoryDisplay {
+    width: 100%;
+    margin-top: 1em;
+  }
+  
+
+  /* Inventory Management Table Styles */
+  #inventoryDisplay {
+    width: 100%;
+    margin-top: 1em;
+    border-collapse: collapse;
+  }
+
+  .table-head th {
+    background-color: #4c96d7;
+    color: #fff;
+    padding: .5em;
+    text-align: left;
+  }
+
+  .table-body td {
+    padding: .5em;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .modify-btn, .delete-btn {
+    display: inline-block;
+    padding: .3em .7em;
+    text-decoration: none;
+    border-radius: 3px;
+  }
+
+  .modify-btn {
+    background-color: #4c96d7;
+    color: white;
+  }
+
+  .delete-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  .modify-btn:hover, .delete-btn:hover {
+    opacity: 0.8;
+  }
+
+  /* No inventory message styling */
+  #inventoryDisplay tr td[colspan="4"] {
+    text-align: center;
+    padding: 1em;
+    color: #666;
+  }
 
 }
   

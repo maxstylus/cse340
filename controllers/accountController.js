@@ -3,9 +3,10 @@
 const utilities = require("../utilities")
 const accountModel = require("../models/account-model")
 const bcrypt = require("bcryptjs")
-const accountController = {}
-const jwt = require("jsonwebtoken")
+const jwt = require("../utilities/jwt-auth")
 require("dotenv").config()
+const accountController = {}
+
 
 /* ****************************************
 *  Deliver login view
@@ -107,11 +108,14 @@ accountController.registerAccount = async function registerAccount(req, res) {
   /* ****************************************
  *  Process login request
  * ************************************ */
-async function accountLogin(req, res) {
+  accountController.accountLogin = async function accountLogin(req, res) {
   let nav = await utilities.getNav()
   const { account_email, account_password } = req.body
   const accountData = await accountModel.getAccountByEmail(account_email)
-  if (!accountData) {
+
+   // Add check for accountData
+   if (!accountData) {
+    console.log("No account found for email:", account_email)
     req.flash("notice", "Please check your credentials and try again.")
     res.status(400).render("account/login", {
       title: "Login",
@@ -121,6 +125,45 @@ async function accountLogin(req, res) {
     })
     return
   }
+
+  /*
+
+  try {
+    if (await bcrypt.compare(account_password, accountData.account_password)) {
+      delete accountData.account_password
+
+      // Create the token data
+      const userData = {
+        account_firstname: accountData.account_firstname,
+        account_type: accountData.account_type,
+        account_id: accountData.account_id
+      }
+
+      // Generate the token using the utility function
+      const accessToken = jwt.generateToken(userData)
+      console.log("Setting JWT cookie for:", userData.account_firstname)
+
+      // Set cookie with explicit configuration
+      res.cookie("jwt", accessToken, { 
+        httpOnly: true,
+        secure: false,  // Set to false for development
+        sameSite: 'Lax',
+        path: '/',
+        maxAge: 3600000 // 1 hour
+      })
+      console.log("Cookie headers set:", res.getHeaders()['set-cookie'])      
+      console.log("Login successful - token set in cookie") // Debug log
+      return res.redirect("/account/")
+    }
+    else {
+      req.flash("message notice", "Please check your credentials and try again.")
+      res.status(400).render("account/login", {
+        title: "Login",
+        nav,
+        errors: null,
+        account_email,
+      })
+    } */
   try {
     if (await bcrypt.compare(account_password, accountData.account_password)) {
       delete accountData.account_password
@@ -142,8 +185,58 @@ async function accountLogin(req, res) {
       })
     }
   } catch (error) {
+    console.error("Login error:", error)
+    req.flash("error", "An error occurred during login.")
     throw new Error('Access Forbidden')
+    res.status(500).render("account/login", {
+      title: "Login",
+      nav,
+      errors: null,
+      account_email,
+    })
   }
+}
+
+      // Set cookie based on environment
+      /*
+      if(process.env.NODE_ENV === 'development') {
+        res.cookie("jwt", accessToken, { 
+          httpOnly: true,
+          maxAge: 3600 * 1000, // 1 hour
+          sameSite: 'Strict',
+          path: '/'
+        })
+        console.log("Cookie set in development mode") // Debug log
+      } else {
+        res.cookie("jwt", accessToken, { 
+          httpOnly: true, 
+          secure: true, 
+          maxAge: 3600 * 1000 
+        })
+        console.log("Cookie set in production mode") // Debug log
+      }
+      */
+
+/*
+  try {
+    if (await bcrypt.compare(account_password, accountData.account_password)) {
+      delete accountData.account_password
+      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+      if(process.env.NODE_ENV === 'development') {
+        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+      } else {
+        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+      }
+      return res.redirect("/account/")
+    }
+    else {
+      req.flash("message notice", "Please check your credentials and try again.")
+  */
+
+
+accountController.logoutAccount = async function(req, res) {
+  res.clearCookie('jwt')
+  res.redirect('/')
 }
 
 /* ****************************************
