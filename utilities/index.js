@@ -212,8 +212,42 @@ Util.buildClassificationList = async function(classification_id = null) {
 }
 
 /* ****************************************
+ * Unified Middleware to Check Login and Token Validity
+ **************************************** */
+/*
+Util.checkAuth = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          console.log("JWT verification failed:", err.message); // Debug log
+          req.flash("notice", "Please log in.");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+        // Token is valid, set user data and logged-in status
+        res.locals.accountData = accountData;
+        res.locals.loggedin = true;
+        next();
+      }
+    );
+  } else {
+    console.log("No JWT token found."); // Debug log
+    req.flash("notice", "Please log in.");
+    return res.redirect("/account/login");
+  }
+};*/
+
+
+
+
+
+/* ****************************************
  * Handles Authorization
  * *************************************** */
+
 Util.checkLogin = (req, res, next) => {
   if (res.locals.loggedin) {
     next()
@@ -222,6 +256,8 @@ Util.checkLogin = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
+  
+  
  /*
   Util.checkLogin = (req, res, next) => {
     if (req.cookies.jwt) {
@@ -236,6 +272,7 @@ Util.checkLogin = (req, res, next) => {
 /* ****************************************
 * Middleware to check token validity
 **************************************** */
+
 Util.checkJWTToken = (req, res, next) => {
   if (req.cookies.jwt) {
    jwt.verify(
@@ -243,7 +280,7 @@ Util.checkJWTToken = (req, res, next) => {
     process.env.ACCESS_TOKEN_SECRET,
     function (err, accountData) {
      if (err) {
-      req.flash("Please log in")
+      req.flash("notice", "Please log in")
       res.clearCookie("jwt")
       return res.redirect("/account/login")
      }
@@ -256,5 +293,69 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
+ /* **************************************
+* Build the reviews HTML
+* ************************************ */
+Util.buildReviewsHTML = async function(reviews, vehicleUrl) {
+  let reviewsHTML = '<div class="reviews-section">'
+  
+  // Add review form for logged-in users
+  if (res.locals.loggedin) {
+    reviewsHTML += `
+      <h3>Leave a Review</h3>
+      <form action="/reviews/add" method="post" class="review-form">
+        <input type="hidden" name="inv_id" value="${vehicleUrl.split('/').pop()}">
+        
+        <label for="review_rating">Rating (1-5 stars):</label>
+        <select name="review_rating" id="review_rating" required>
+          <option value="5">5 - Excellent</option>
+          <option value="4">4 - Very Good</option>
+          <option value="3">3 - Good</option>
+          <option value="2">2 - Fair</option>
+          <option value="1">1 - Poor</option>
+        </select>
+        
+        <label for="review_text">Your Review:</label>
+        <textarea name="review_text" id="review_text" rows="4" required 
+          placeholder="Share your experience with this vehicle..."></textarea>
+        
+        <button type="submit">Submit Review</button>
+      </form>
+    `
+  } else {
+    reviewsHTML += `
+      <p><a href="/account/login">Log in</a> to leave a review.</p>
+    `
+  }
+  // Display existing reviews
+  reviewsHTML += '<h3>Customer Reviews</h3>'
+  
+  if (reviews.length === 0) {
+    reviewsHTML += '<p>No reviews yet. Be the first to review this vehicle!</p>'
+  } else {
+    reviewsHTML += '<div class="review-list">'
+    
+    reviews.forEach(review => {
+      const stars = '★'.repeat(review.review_rating) + '☆'.repeat(5 - review.review_rating)
+      const date = new Date(review.review_date).toLocaleDateString()
+      
+      reviewsHTML += `
+        <div class="review-item">
+          <div class="review-header">
+            <span class="review-stars">${stars}</span>
+            <span class="review-author">by ${review.account_firstname} ${review.account_lastname.charAt(0)}.</span>
+            <span class="review-date">${date}</span>
+          </div>
+          <div class="review-text">${review.review_text}</div>
+        </div>
+      `
+    })
+    
+    reviewsHTML += '</div>'
+  }
+  
+  reviewsHTML += '</div>'
+  return reviewsHTML
+}
 
  module.exports = Util

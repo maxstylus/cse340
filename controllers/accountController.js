@@ -4,6 +4,7 @@ const utilities = require("../utilities")
 const accountModel = require("../models/account-model")
 const bcrypt = require("bcryptjs")
 const jwt = require("../utilities/jwt-auth")
+//const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const accountController = {}
 
@@ -112,6 +113,7 @@ accountController.registerAccount = async function registerAccount(req, res) {
   let nav = await utilities.getNav()
   const { account_email, account_password } = req.body
   const accountData = await accountModel.getAccountByEmail(account_email)
+  console.log("Debug - accountData:", accountData) // Debug log
 
    // Add check for accountData
    if (!accountData) {
@@ -126,53 +128,27 @@ accountController.registerAccount = async function registerAccount(req, res) {
     return
   }
 
-  /*
-
   try {
     if (await bcrypt.compare(account_password, accountData.account_password)) {
-      delete accountData.account_password
+      delete accountData.account_password //hash pword removed from object
 
       // Create the token data
-      const userData = {
-        account_firstname: accountData.account_firstname,
-        account_type: accountData.account_type,
-        account_id: accountData.account_id
-      }
+      const accessToken = jwt.sign(accountData, ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+      console.log("Generated JWT:", accessToken)
+      console.log(process.env.NODE_ENV)
 
-      // Generate the token using the utility function
-      const accessToken = jwt.generateToken(userData)
-      console.log("Setting JWT cookie for:", userData.account_firstname)
-
-      // Set cookie with explicit configuration
-      res.cookie("jwt", accessToken, { 
-        httpOnly: true,
-        secure: false,  // Set to false for development
-        sameSite: 'Lax',
-        path: '/',
-        maxAge: 3600000 // 1 hour
-      })
-      console.log("Cookie headers set:", res.getHeaders()['set-cookie'])      
-      console.log("Login successful - token set in cookie") // Debug log
-      return res.redirect("/account/")
-    }
-    else {
-      req.flash("message notice", "Please check your credentials and try again.")
-      res.status(400).render("account/login", {
-        title: "Login",
-        nav,
-        errors: null,
-        account_email,
-      })
-    } */
-  try {
-    if (await bcrypt.compare(account_password, accountData.account_password)) {
-      delete accountData.account_password
-      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+      
       if(process.env.NODE_ENV === 'development') {
-        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 }) //sameSite: 'Lax',
       } else {
         res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
       }
+
+      console.log("Setting JWT cookie for:", accountData.account_firstname)
+      console.log("Cookie headers set:", res.getHeaders()['set-cookie']);
+
+      // Redirect to account management page
+      req.flash("notice", `Welcome back ${accountData.account_firstname}.`)
       return res.redirect("/account/")
     }
     else {
@@ -187,13 +163,7 @@ accountController.registerAccount = async function registerAccount(req, res) {
   } catch (error) {
     console.error("Login error:", error)
     req.flash("error", "An error occurred during login.")
-    throw new Error('Access Forbidden')
-    res.status(500).render("account/login", {
-      title: "Login",
-      nav,
-      errors: null,
-      account_email,
-    })
+    return new Error('Access Forbidden')
   }
 }
 

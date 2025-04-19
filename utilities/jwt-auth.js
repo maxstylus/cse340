@@ -3,6 +3,7 @@ require('dotenv').config()
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 
+
 function generateToken(userData) {
   return jwt.sign(userData, accessTokenSecret, { expiresIn: 3600 * 1000 })
 }

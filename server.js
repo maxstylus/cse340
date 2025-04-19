@@ -16,7 +16,7 @@ const baseController = require("./controllers/baseController")
 const utilities = require("./utilities")
 const session = require("express-session")
 const accountRoute = require("./routes/accountRoute")
-//const bodyParser = require("body-parser")
+const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const jwtAuth = require('./utilities/jwt-auth')
 
@@ -30,49 +30,19 @@ app.use(express.json())
 //app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.use(utilities.checkJWTToken)
+//app.use(utilities.checkAuth) // Check for JWT token in cookies
+
 
 // Simple session configuration for flash messages only
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: false,  // Set to false to avoid creating a session for every request
   name: 'flashSession',
-  cookie: { 
+  cookie: {
     maxAge: 60000 // 1 minute
   }
 }))
-
-
-// Session middleware - keep this minimal for flash messages only
-
-/*
-app.use(session({
-  store: new (require('connect-pg-simple')(session))({
-    createTableIfMissing: true,
-    pool,
-  }),
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
-  name: 'sessionId',
-  cookie: {
-    maxAge: 1000 * 60 * 5 // 5 minutes
-  }
-}))
-  */
-
-/*
-app.use(session({
-    store: new (require('connect-pg-simple')(session))({
-      createTableIfMissing: true,
-      pool,
-    }),
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-    name: 'sessionId',
-  })) */
 
 // Flash message Middleware
 app.use(require('connect-flash')())
@@ -81,13 +51,30 @@ app.use(function(req, res, next){
   next()
 })
 
+
+// Handle /favicon.ico requests
+app.get("/favicon.ico", (req, res) => res.status(204).end());
+
+// Debug log for req.flash
+app.use((req, res, next) => {
+  console.log("req.flash is:", typeof req.flash);
+  next();
+});
+
+app.use((req, res, next) => {
+  if (req.url !== "/favicon.ico") {
+    console.log(`Incoming request: ${req.method} ${req.url}`);
+  }
+  next();
+});
+
+
 // Process Registration Form Data
-//app.use(bodyParser.json())
-//app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 // JWT verification middleware
 //app.use(jwtAuth.verifyToken) 
-
 
 /* ***********************
  * View Engine and Templates
@@ -109,6 +96,10 @@ app.use("/inv", inventoryRoute)
 
 // Account route
 app.use("/account", accountRoute)
+
+// Review routes
+const reviewRoute = require("./routes/reviewRoute")
+app.use("/reviews", reviewRoute)
 
 // Add this route before your 404 handler
 // Deliberately throw an error to test the error handler from "error link'

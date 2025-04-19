@@ -8,8 +8,14 @@ const invValidate = require("../utilities/inventory-validation")
 // Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassificationId);
 
+// Add the review controller
+const reviewController = require("../controllers/reviewController")
+
 // Route to build inventory by detail view
-router.get("/detail/:inventoryId", invController.buildByInventoryId);
+router.get("/detail/:inventoryId", 
+    invController.buildByInventoryId,
+    reviewController.buildReviewSection
+)
 
 // Route to build edit inventory view 
 router.get("/edit/:inventoryId", invController.buildEditInventory)
